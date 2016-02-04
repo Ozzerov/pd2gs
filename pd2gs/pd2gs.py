@@ -1,6 +1,7 @@
-import json
 import gspread
+import json
 from oauth2client.client import SignedJwtAssertionCredentials
+import re
 
 
 class ConnectGoogleSheet:
@@ -14,8 +15,9 @@ class ConnectGoogleSheet:
             self.sheet = gc.open_by_key(google_sheet_key)
         except:
             raise PermissionError("""
-Either sheet with key does not exist, or your account does\'t have right permission!
-Try giving "can edit" rights to an email listed in your credentials: """ + json_key['client_email'])
+Either sheet with this key does not exist, or your account does\'t have right permission!
+Double check sheet key. If this not the case,
+try giving "can edit" rights to an email listed in your credentials: """ + json_key['client_email'])
 
     @staticmethod
     def _num2letters(n):
@@ -34,19 +36,31 @@ Try giving "can edit" rights to an email listed in your credentials: """ + json_
             cell.value = value
         _ws.update_cells(cell_list)
 
-    def write(self, df, worksheet=None, start_row=1, start_col='A'):
-        rows, cols = [shape + 1 for shape in df.shape]
-        if worksheet:
-            if worksheet in self.sheet.worksheets():
-                ws = self.sheet.worksheet(worksheet)
-            else:
-                ws = self.sheet.add_worksheet(title=worksheet, rows=max(rows, 26), cols=max(cols, 26))
-        else:
-            ws = self.sheet.Sheet1
+    def write(self, df, worksheet='Sheet1', start_from='A1'):
+        """
+        :param df: pandas DataFrame
+        :param worksheet: worksheet name
+        :param start_from: cell to use for top left corner of a DataFrame
+        """
+        n_rows, n_cols = df.shape
+        start_col, start_row = re.findall('\\d+|\\D+', start_from)
+        start_col = sum([(ord(l) - 64) * 26 ** n for (l, n) in zip(start_col.upper(),
+                                                                   range(len(start_col) - 1, -1, -1))])
+        start_row = int(start_row)
+        try:
+            ws = self.sheet.worksheet(worksheet)
+        except:
+            ws = self.sheet.add_worksheet(title=worksheet,
+                                          rows=max(start_row + n_rows + 1, 26),
+                                          cols=max(start_col + n_cols + 1, 26))
 
-        index_range = 'A2:A' + str(rows)
-        columns_range = 'B1:' + self._num2letters(cols) + '1'
-        values_range = 'B2:' + self._num2letters(cols) + str(rows)
+        index_range = '{0}{1}:{2}{3}'.format(self._num2letters(start_col), start_row + 1,
+                                             self._num2letters(start_col), start_row + n_rows)
+        columns_range = '{0}{1}:{2}{3}'.format(self._num2letters(start_col + 1), start_row,
+                                               self._num2letters(start_col + n_cols), start_row)
+        values_range = '{0}{1}:{2}{3}'.format(self._num2letters(start_col + 1), start_row + 1,
+                                              self._num2letters(start_col + n_cols), start_row + n_rows)
+        print(index_range, columns_range, values_range)
 
         self._update_cells(ws, index_range, df.index)
         self._update_cells(ws, columns_range, df.columns)
