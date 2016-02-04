@@ -4,8 +4,8 @@ from oauth2client.client import SignedJwtAssertionCredentials
 
 
 class ConnectGoogleSheet:
-    def __init__(self, credentials_path, google_sheet_key):
-        json_key = json.load(open(credentials_path))
+    def __init__(self, path_to_credentials_json, google_sheet_key):
+        json_key = json.load(open(path_to_credentials_json))
         scope = ['https://spreadsheets.google.com/feeds']
         credentials = SignedJwtAssertionCredentials(json_key['client_email'],
                                                     json_key['private_key'].encode(), scope)
