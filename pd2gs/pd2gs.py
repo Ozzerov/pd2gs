@@ -42,7 +42,7 @@ Try giving "can edit" rights to an email listed in your credentials: """ + json_
             else:
                 ws = self.sheet.add_worksheet(title=worksheet, rows=max(rows, 26), cols=max(cols, 26))
         else:
-            ws = self.sheet.Shee1
+            ws = self.sheet.Sheet1
 
         index_range = 'A2:A' + str(rows)
         columns_range = 'B1:' + self._num2letters(cols) + '1'
