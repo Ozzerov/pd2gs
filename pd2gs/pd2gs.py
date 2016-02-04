@@ -4,8 +4,8 @@ from oauth2client.client import SignedJwtAssertionCredentials
 
 
 class ConnectGoogleSheet:
-    def __init__(self, credentials_path, google_sheet_key):
-        json_key = json.load(open(credentials_path))
+    def __init__(self, path_to_credentials_json, google_sheet_key):
+        json_key = json.load(open(path_to_credentials_json))
         scope = ['https://spreadsheets.google.com/feeds']
         credentials = SignedJwtAssertionCredentials(json_key['client_email'],
                                                     json_key['private_key'].encode(), scope)
@@ -42,7 +42,7 @@ Try giving "can edit" rights to an email listed in your credentials: """ + json_
             else:
                 ws = self.sheet.add_worksheet(title=worksheet, rows=max(rows, 26), cols=max(cols, 26))
         else:
-            ws = self.sheet.Shee1
+            ws = self.sheet.Sheet1
 
         index_range = 'A2:A' + str(rows)
         columns_range = 'B1:' + self._num2letters(cols) + '1'
