@@ -15,9 +15,9 @@ class ConnectGoogleSheet:
             self.sheet = gc.open_by_key(google_sheet_key)
         except:
             raise PermissionError("""
-Either sheet with this key does not exist, or your account does\'t have right permission!
-Double check sheet key. If this not the case,
-try giving "can edit" rights to an email listed in your credentials: """ + json_key['client_email'])
+            Either sheet with this key does not exist, or your account does\'t have right permission!
+            Double check sheet key. If this is not the case, try giving "can edit" rights
+            to an email listed in your credentials: """ + json_key['client_email'])
 
     @staticmethod
     def _num2letters(n):
