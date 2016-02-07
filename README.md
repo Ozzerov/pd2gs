@@ -32,6 +32,6 @@ Code Example
     import pandas as pd      
     from pd2gs.pd2gs import ConnectGoogleSheet 
          
-    df = pd.read_csv(path + 'df.csv')         
-    sh = ConnectGoogleSheet('path/credentials.json', 'spreadsheet_id')    
-    sh.write(df, 'new_sheet_name')    
+    df = pd.DataFrame()         
+    sh = ConnectGoogleSheet('credentials.json', 'spreadsheet_key')    
+    sh.write(df)    
