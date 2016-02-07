@@ -29,10 +29,10 @@ This package is very simple:
 Code Example
 --------
 <code>
-import pandas as pd <br>  
-from pd2gs.pd2gs import ConnectGoogleSheet <br> 
-<br> 
-df = pd.read_csv(path + 'df.csv') <br> 
-sh = ConnectGoogleSheet('path/credentials.json', 'spreadsheet_id') <br> 
-sh.write(df, 'new_sheet_name')
+import pandas as pd    
+from pd2gs.pd2gs import ConnectGoogleSheet    
+
+df = pd.read_csv(path + 'df.csv')       
+sh = ConnectGoogleSheet('path/credentials.json', 'spreadsheet_id')  
+sh.write(df, 'new_sheet_name')  
 </code>
