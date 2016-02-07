@@ -1,6 +1,6 @@
 pd2gs
 ===========
-[![PyPI version](https://badge.fury.io/py/xgboost.svg)](https://pypi.python.org/pypi/xgboost/)
+[![PyPI version](https://badge.fury.io/py/xgboost.svg)](https://pypi.python.org/pypi/pd2gs)
 
 pd2gs — Simple tool to export pandas dataframes to google sheets.
 
