@@ -9,8 +9,9 @@ pd2gs — Simple tool to export pandas dataframes to google sheets.
 
 Installation
 --------
-Simply install with pip:  <br>
-    <code> $ pip install pd2gs </code>
+Simply install with pip:  
+    
+    $ pip install pd2gs
     
 Preparation (get credentials)
 --------
