@@ -23,7 +23,7 @@ This package uses Google Drive API so you need to authenticate yourself via Goog
 Usage
 --------
 This package is very simple:  
-1.  You create your Google Sheet in Google drive and copy its <a href="http://take.ms/JP5iC">Spreadsheet Id</a>
+1.  You create your Google Sheet in Google drive and copy its <a href="http://take.ms/JP5iC">Spreadsheet Id</a>  
 2.  Upload your pandas DataFrame to Google Sheets via ConnectGoogleSheet.write()
 
 Code Example
