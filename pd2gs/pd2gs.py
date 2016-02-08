@@ -60,7 +60,6 @@ class ConnectGoogleSheet:
                                                self._num2letters(start_col + n_cols), start_row)
         values_range = '{0}{1}:{2}{3}'.format(self._num2letters(start_col + 1), start_row + 1,
                                               self._num2letters(start_col + n_cols), start_row + n_rows)
-        print(index_range, columns_range, values_range)
 
         self._update_cells(ws, index_range, df.index)
         self._update_cells(ws, columns_range, df.columns)
