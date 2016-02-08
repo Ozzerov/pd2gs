@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+*.png
+*.jpg
+
 # Distribution / packaging
 .Python
 env/
@@ -58,3 +61,5 @@ docs/_build/
 target/
 
 .idea/*
+.Rproj.user
+
