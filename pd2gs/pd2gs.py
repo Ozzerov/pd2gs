@@ -13,6 +13,7 @@ class ConnectGoogleSheet:
         gc = gspread.authorize(credentials)
         try:
             self.sheet = gc.open_by_key(google_sheet_key)
+            print('Successfully connected to https://docs.google.com/spreadsheets/d/' + google_sheet_key)
         except:
             raise PermissionError("""
             Either sheet with this key does not exist, or your account does\'t have right permission!
@@ -36,7 +37,7 @@ class ConnectGoogleSheet:
             cell.value = value
         _ws.update_cells(cell_list)
 
-    def write(self, df, worksheet='Sheet1', start_from='A1'):
+    def write(self, df, worksheet='Sheet1', start_from='A1', min_n_rows=26, min_n_cols=26):
         df = df.reset_index()
         """
         :param df: pandas DataFrame
@@ -53,8 +54,8 @@ class ConnectGoogleSheet:
             ws = self.sheet.worksheet(worksheet)
         except:
             ws = self.sheet.add_worksheet(title=worksheet,
-                                          rows=max(start_row + n_rows + 1, 26),
-                                          cols=max(start_col + n_cols + 1, 26))
+                                          rows=max(start_row + n_rows + 1, min_n_rows),
+                                          cols=max(start_col + n_cols + 1, min_n_cols))
 
         columns_range = '{0}{1}:{2}{3}'.format(self._num2letters(start_col), start_row,
                                                self._num2letters(start_col + n_cols), start_row)
